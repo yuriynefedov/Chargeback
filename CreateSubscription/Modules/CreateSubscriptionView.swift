@@ -21,7 +21,10 @@ struct CreateSubscriptionView<VM: CreateSubscriptionViewInterface>: RootView {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear(perform: viewModel.onAppear)
             .sheet(isPresented: $servicePickerVisible) {
-                servicePicker
+                ServicePicker(
+                    servicePickerVisible: $servicePickerVisible,
+                    viewModel: viewModel
+                )
             }
             .sheet(isPresented: $categoryPickerVisible) {
                 CategoryPicker(pickerVisible: $categoryPickerVisible, category: $viewModel.selectedCategory)
@@ -218,13 +221,6 @@ struct CreateSubscriptionView<VM: CreateSubscriptionViewInterface>: RootView {
         .cardBackground()
         .padding(.horizontal, 16.0)
         .padding(.top, 20.0)
-    }
-    
-    var servicePicker: some View {
-        ServicePicker(
-            servicePickerVisible: $servicePickerVisible,
-            viewModel: viewModel
-        )
     }
 }
 
